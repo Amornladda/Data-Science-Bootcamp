@@ -1,0 +1,27 @@
+play_game <- function() {
+  
+  score = 0
+  
+  options <- c("hammer", "scissor", "paper")
+  print(options)
+  
+  user_select <- readline("Please Choose One: ")
+  computer_select <- sample(options, 1)
+  
+  if (user_select == computer_select) {
+    print("You Draw")
+    
+  } else if (user_select == "hammer") {
+    if (computer_select == "scissor")
+      
+    print("Thanks for playing")
+    score = score + 1
+    print(score)
+    
+  } else if (user_select == "hammer") {
+    if (computer_select == "paper")
+    print("You lose")
+    
+  } else
+    print("Again")
+}
