@@ -1,0 +1,53 @@
+library(rvest)
+library(tidyverse)
+
+# Home work 1 IMDB
+
+url <- "https://www.imdb.com/search/title/?groups=top_100&sort=user_rating%2Cdesc"
+
+movie_name <- url %>%
+  read_html() %>%
+  html_elements("h3") %>%
+  html_text2()
+
+rating <- url %>%
+  read_html() %>%
+  html_elements("div.ratings-imdb-rating") %>%
+  html_text2() %>%
+  as.numeric()
+
+metascore <- url %>%
+  read_html() %>%
+  html_elements("div.ratings-metascore") %>%
+  html_text2() 
+
+df <- data.frame(
+  movie_name,
+  rating,
+  metascore
+)
+
+
+# Home work 2 static website
+
+url <- "https://hypeauditor.com/top-youtube-all-thailand/"
+
+youtube_ch <- url %>%
+  read_html() %>%
+  html_elements("div.contributor__name") %>%
+  html_text2()
+
+followers <- url %>%
+  read_html() %>%
+  html_elements("div.subscribers") %>%
+  html_text2()
+
+country <- url %>%
+  read_html() %>%
+  html_elements("div.audience") %>%
+  html_text2()
+
+avg_view <- url %>%
+  read_html() %>%
+  html_elements("div.avg-views") %>%
+  html_text2()
