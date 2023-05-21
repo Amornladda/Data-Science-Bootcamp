@@ -1,0 +1,56 @@
+library(caret)
+
+# split data
+
+houseprice <- read_excel("House Price India.xlsx", sheet = 1)
+
+train_test_split <- function(data, trainRatio=0.7) {
+  set.seed(42)
+  n <- nrow(data)
+  id <- sample(1:n, size = trainRatio*n)
+  train_data <- data[id, ]
+  test_data <- data[-id, ]
+  return(list(train=train_data, test=test_data))
+}
+
+Splitdata <- train_test_split(houseprice, 0.8)
+train_data <- Splitdata[[1]]
+test_data <- Splitdata[[2]]
+
+nrow(train_data)
+nrow(test_data)
+
+train_data$Price_norm <- log(train_data$Price)
+test_data$Price_norm <- log(test_data$Price)
+
+# train data
+
+set.seed(42)
+model <- train(Price_norm ~ `number of bedrooms` + `number of bathrooms` + `number of floors` + `grade of the house`,
+            data = train_data,
+            method = "lm")
+print(model)
+
+# test data
+
+p <- predict(model, newdata = test_data)
+
+# evaluate model
+
+mae_metric <- function(actual, prediction) {
+  abs_error <- abs(actual - prediction)
+  mean(abs_error)
+}
+mae_metric(test_data$Price_norm, p)
+
+mse_metric <- function(actual, prediction) {
+  sq_error <- (actual - prediction)**2
+  mean(sq_error)
+}
+mse_metric(test_data$Price_norm, p)
+
+rmse_metric <- function(actual, prediction) {
+  sq_error <- (actual - prediction)**2
+  sqrt(mean(sq_error))
+}
+rmse_metric(test_data$Price_norm, p)
