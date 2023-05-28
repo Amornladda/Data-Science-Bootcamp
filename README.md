@@ -10,3 +10,9 @@ My course learning and create my project to practice.
 - R
 - SQL
 - Python
+- Looker Studio
+- Tableau Public
+- Notion
+- Wordpress
+- Github
+- Link-In-Bio
