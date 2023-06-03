@@ -1,0 +1,31 @@
+import types
+def chatbot():
+    pizza_order = ["sea food", "hawaiian","doublecheeze","peperoni"]
+    size = ["small", "medium", "large"]
+    
+    order = {
+        "type": " ",
+        "size": " ",
+    }
+    print(" Hello may i help you")
+
+    while True:
+        types = input("Please choose pizza do you want? ")
+        if types in pizza_order:
+            print (types)
+        else:
+            print("Sorry not have in menu, Please choose new.")
+            continue
+
+        while True:
+            sizes = input("Please choose size do you want? ")
+            if sizes in size:
+              print (types + sizes)
+            else:
+              print("Sorry not have in menu, Please choose new.")
+              continue
+
+            print("Your order summary")
+            print (types + sizes)
+            return order       
+chatbot()            
