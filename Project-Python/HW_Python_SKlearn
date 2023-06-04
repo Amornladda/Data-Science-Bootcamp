@@ -1,0 +1,80 @@
+from sklearn.linear_model import LinearRegression
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.model_selection import train_test_split
+import pandas as pd
+import numpy as np
+
+cus_car = pd.read_csv("https://raw.githubusercontent.com/uwdata/draco/master/data/cars.csv")
+cus_car.head()
+
+#LinearRegression
+# prepare data
+# prepare data 50-80%
+# Retail Price = f(Engine Size (l),Horsepower(HP),City Miles Per Gallon)
+X = cus_car[ ["Engine Size (l)", "Highway Miles Per Gallon",  "City Miles Per Gallon"] ]
+y = cus_car[ "Width" ]
+
+# split data 80% train 20% test
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 42) 
+
+# train model
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# test data / scoring
+pred = model.predict(X_test)
+pred
+
+# MAE mean absolute error
+MAE = np.mean(np.absolute((y_test - pred)))
+
+# MSE Mean square error
+MSE = np.mean((y_test - pred) ** 2)
+
+print(f"MAE : {MAE}")
+print(f"MSE : {MSE}")
+
+
+#DecisionTreeRegressor
+# train model
+model = DecisionTreeRegressor()
+model.fit(X_train, y_train)
+
+# test data / scoring
+pred = model.predict(X_test)
+pred
+
+# MAE mean absolute error
+MAE = np.mean(np.absolute((y_test - pred)))
+
+# MSE Mean square error
+MSE = np.mean((y_test - pred) ** 2)
+
+print(f"MAE : {MAE}")
+print(f"MSE : {MSE}")
+
+
+#RandomForestRegressor
+# train model
+model = RandomForestRegressor()
+model.fit(X_train, y_train)
+
+# test data / scoring
+pred = model.predict(X_test)
+pred
+
+# MAE mean absolute error
+MAE = np.mean(np.absolute((y_test - pred)))
+
+# MSE Mean square error
+MSE = np.mean((y_test - pred) ** 2)
+
+print(f"MAE : {MAE}")
+print(f"MSE : {MSE}")
+
+
+
+
+
+
